@@ -1,4 +1,3 @@
-from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -20,7 +19,7 @@ class PageMain(Base):
 
     # Locators
 
-    button_reject = "//div[@class='cookie-consent__popup-button-reject']"
+    button_reject = "//div[@class='cookie-consent__popup-button-reject']" # при открытии сайта открывается окно с куки
     button_main_login = "(//span[@data-mfp-src='#lgin'])[2]"
     field_email = "//input[@type='email']"
     field_password = "//input[@type='password']"

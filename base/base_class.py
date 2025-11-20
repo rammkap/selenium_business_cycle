@@ -18,4 +18,4 @@ class Base():
         now_date = datetime.datetime.now().strftime("%Y.%m.%d.%H.%M.%S")
         name_screenshot = 'screenshot' + now_date + '.png'
         self.driver.save_screenshot(
-            'C:\\Users\\vyacheslav.klimanov\\OneDrive - Veeam Software Corporation\\Desktop\\businessCycle1\\screenshots\\' + name_screenshot)
+            'C:\\Users\\businessCycle1\\screenshots\\' + name_screenshot)

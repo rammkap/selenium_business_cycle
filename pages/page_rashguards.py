@@ -1,6 +1,5 @@
 import time
 
-from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -20,6 +19,8 @@ class PageRashguards(Base):
     filter_order = "(//div[@class='xaccordion-title'])[4]"
     checkbox_price = "//label[@for='st_5']"
     product_LPI_preto = "//img[@title='Rashguard de manga curta Leone Primal Instinct - preto']"
+    product_LPI_preto_name = "//h2[@title='Rashguard de manga curta Leone Primal Instinct - preto']"
+    product_LPI_preto_price1 = "//*[@id='scrollingcontent']/div/div/div[3]/a/div[2]"
 
     # Getters
 
@@ -40,6 +41,12 @@ class PageRashguards(Base):
 
     def get_product_LPI_preto(self):
         return WebDriverWait(self.driver, 30).until((EC.element_to_be_clickable((By.XPATH, self.product_LPI_preto))))
+
+    def get_product_LPI_preto_name(self):
+        return WebDriverWait(self.driver, 30).until((EC.visibility_of_element_located((By.XPATH, self.product_LPI_preto_name))))
+
+    def get_product_LPI_preto_price1(self):
+        return WebDriverWait(self.driver, 30).until((EC.visibility_of_element_located((By.XPATH, self.product_LPI_preto_price1))))
 
     # Actions
 
@@ -69,7 +76,7 @@ class PageRashguards(Base):
 
     # Methods
 
-    def find_LPI_preto(self):
+    def apply_filters(self):
         self.click_button_filter()
         time.sleep(10)
         self.click_filter_sizes()
@@ -78,4 +85,3 @@ class PageRashguards(Base):
         self.click_button_filter()
         self.click_filter_order()
         self.click_checkbox_price()
-        self.click_product_LPI_preto()
