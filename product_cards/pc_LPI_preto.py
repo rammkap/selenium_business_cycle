@@ -2,6 +2,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from base.base_class import Base
+from logs.logger import Logger
+
 
 class LPLpreto(Base):
 
@@ -51,9 +53,11 @@ class LPLpreto(Base):
     # Methods
 
     def choose_and_go_to_cart(self):
+        Logger.add_start_step(method='choose_and_go_to_cart')
         self.click_button_size_L()
         self.click_button_add_to_cart()
         self.click_button_go_to_cart()
+        Logger.add_end_step(url=self.driver.current_url, method='choose_and_go_to_cart')
 
 
 

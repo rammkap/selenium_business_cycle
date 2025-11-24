@@ -20,24 +20,24 @@ def test_smoke_business_cycle(test_suite, test_case):
     driver = webdriver.Chrome(options=options, service=ChromeService(ChromeDriverManager().install()))
 
     login = PageMain(driver)
-    login.perform_login() # выполняем авторизацию на сайте
+    login.perform_login() # performing authorization
 
-    time.sleep(3) # добавил такое ожидание так как иначе получаю ошибку StaleElementReferenceException, сайт глюученый
+    time.sleep(3) # added such a waiting since get 'StaleElementReferenceException', web-site is slow
     grappling = PageAccount(driver)
-    grappling.go_to_grappling() # переходим на страницу grappling
+    grappling.go_to_grappling() # go to 'grappling' page
 
     rashguards = PageGrappling(driver)
-    rashguards.go_to_rashguards() # переходим на страницу rashguards
+    rashguards.go_to_rashguards() # go to 'rashguards' page
 
-    time.sleep(5)  # добавил такое ожидание так как иначе получаю ошибку StaleElementReferenceException
+    time.sleep(5)  # added such a waiting since get 'StaleElementReferenceException', web-site is slow
     rashguard = PageRashguards(driver)
-    rashguard.apply_filters() # сначала применяем фильтры одним методом, чтобы дальше селениум мог успеть сохранить переменные
+    rashguard.apply_filters() # first, we apply filters using one method so that Selenium can save the variables later
     rashguard_name = rashguard.get_product_LPI_preto_name().text
     rashguard_price = rashguard.get_product_LPI_preto_price1().text[:-1]
     rashguard_price_dot = float(rashguard_price.replace(',', '.'))
-    rashguard.click_product_LPI_preto() # отдельным методом переходим на страницу карточки товара
+    rashguard.click_product_LPI_preto() # using a separate method, we go to the product card page
 
-    choose_product = LPLpreto(driver) # сначала импортируем класс, чтобы сохранить переменные
+    choose_product = LPLpreto(driver) # first, we import the class to save the variables
     rashguard_name2 = choose_product.get_product_LPI_preto2().text
     rashguard_price2 = choose_product.get_product_LPI_preto_price2().text[:-1]
     rashguard_price2_dot = float(rashguard_price2.replace(',', '.'))
@@ -45,20 +45,20 @@ def test_smoke_business_cycle(test_suite, test_case):
     print('Name is the same')
     assert  rashguard_price_dot == rashguard_price2_dot
     print('Price is the same')
-    choose_product.choose_and_go_to_cart() # а теперь используем метод перехода в корзину
+    choose_product.choose_and_go_to_cart() # now we use the method of going to the cart
 
     go_to_cart = Cart(driver)
-    go_to_cart.go_to_checkout() # переход к чекауту
+    go_to_cart.go_to_checkout()
 
-    pay = Checkout(driver) # сначала импортируем класс, чтобы сохранить переменные
+    pay = Checkout(driver) # first, we import the class to save the variables
     rashguard_name3 = pay.get_product_LPI_preto3().text
-    rashguard_price3 = pay.get_product_LPI_preto_total_price().text[:-1] # используем индексы чтобы обрезать строку '33,95$'
-    rashguard_price3_dot = float(rashguard_price3.replace(',', '.')) # заменяем запятую на точку
+    rashguard_price3 = pay.get_product_LPI_preto_total_price().text[:-1] # I use indexes to trim the string '33.95$'
+    rashguard_price3_dot = float(rashguard_price3.replace(',', '.'))
     envio_price = pay.get_price_envio().text[:-1]
     envio_price_dot = float(envio_price.replace(',', '.'))
     assert rashguard_name3 == rashguard_name3
     print('Name is the same')
-    assert round(rashguard_price2_dot, 2) == round(rashguard_price3_dot - envio_price_dot, 2) # используем round для корректного сравнения float
+    assert round(rashguard_price2_dot, 2) == round(rashguard_price3_dot - envio_price_dot, 2)
     print('Price is the same')
     pay.payment()
 

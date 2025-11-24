@@ -2,6 +2,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from base.base_class import Base
+from logs.logger import Logger
 
 
 class PageMain(Base):
@@ -19,7 +20,7 @@ class PageMain(Base):
 
     # Locators
 
-    button_reject = "//div[@class='cookie-consent__popup-button-reject']" # при открытии сайта открывается окно с куки
+    button_reject = "//div[@class='cookie-consent__popup-button-reject']" # when open a website, a window with cookies opens
     button_main_login = "(//span[@data-mfp-src='#lgin'])[2]"
     field_email = "//input[@type='email']"
     field_password = "//input[@type='password']"
@@ -67,6 +68,7 @@ class PageMain(Base):
     # Methods
 
     def perform_login(self):
+        Logger.add_start_step(method='perform_login')
         self.driver.get(self.url)
         self.driver.maximize_window()
         self.get_current_url()
@@ -75,3 +77,4 @@ class PageMain(Base):
         self.input_field_email(self.default_email)
         self.input_field_password(self.default_password)
         self.click_button_login()
+        Logger.add_end_step(url=self.driver.current_url, method='perform_login')

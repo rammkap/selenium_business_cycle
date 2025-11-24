@@ -4,6 +4,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from base.base_class import Base
+from logs.logger import Logger
+
 
 class PageRashguards(Base):
 
@@ -77,6 +79,7 @@ class PageRashguards(Base):
     # Methods
 
     def apply_filters(self):
+        Logger.add_start_step(method='apply_filters')
         self.click_button_filter()
         time.sleep(10)
         self.click_filter_sizes()
@@ -85,3 +88,4 @@ class PageRashguards(Base):
         self.click_button_filter()
         self.click_filter_order()
         self.click_checkbox_price()
+        Logger.add_end_step(url=self.driver.current_url, method='apply_filters')

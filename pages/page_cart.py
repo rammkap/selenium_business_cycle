@@ -2,6 +2,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from base.base_class import Base
+from logs.logger import Logger
+
 
 class Cart(Base):
 
@@ -27,4 +29,6 @@ class Cart(Base):
     # Methods
 
     def go_to_checkout(self):
+        Logger.add_start_step(method='go_to_checkout')
         self.click_button_filter()
+        Logger.add_end_step(url=self.driver.current_url, method='go_to_checkout')
